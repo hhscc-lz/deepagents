@@ -7,6 +7,7 @@ import os
 import re
 import shutil
 import tempfile
+from datetime import datetime
 from pathlib import Path
 from typing import TYPE_CHECKING, Any
 
@@ -329,6 +330,7 @@ def get_system_prompt(
         .replace("{model_identity_section}", model_identity_section)
         .replace("{working_dir_section}", working_dir_section)
         .replace("{skills_path}", skills_path)
+        .replace("{current_datetime}", datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
     )
 
     # Detect unreplaced placeholders (defense-in-depth for template typos)

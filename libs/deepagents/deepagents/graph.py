@@ -28,7 +28,6 @@ from deepagents.middleware.subagents import (
     GENERAL_PURPOSE_SUBAGENT,
     CompiledSubAgent,
     SubAgent,
-    SubAgentMiddleware,
 )
 from deepagents.middleware.summarization import create_summarization_middleware
 
@@ -75,8 +74,8 @@ MINXIN_TODOS_SYSTEM_PROMPT = """## `write_todos`
 此工具对规划复杂目标、将大型复杂目标分解为小步骤非常有用。
 
 完成步骤后立即标记为已完成至关重要。不要在标记完成前批量处理多个步骤。
-对于只需几步的简单目标，最好直接完成目标，不使用此工具。
-编写任务需要时间和 token，在管理复杂多步骤问题时使用！但不用于简单的几步请求。
+对于纯粹的对话或信息性请求（用户只是在问问题），不使用此工具。
+所有需要执行操作的任务，无论简单复杂，都应使用此工具跟踪进度。
 
 ## 重要的任务列表使用注意事项
 - `write_todos` 工具不应并行调用多次
@@ -84,7 +83,7 @@ MINXIN_TODOS_SYSTEM_PROMPT = """## `write_todos`
 
 MINXIN_TODOS_TOOL_DESCRIPTION = """使用此工具创建和管理当前工作会话的结构化任务列表。帮助跟踪进度、组织复杂任务、向用户展示工作全面性。
 
-仅在认为有助于保持组织性时使用。如果用户请求简单且少于3步，最好不使用此工具，直接完成任务。
+仅在任务纯粹是对话或信息性的时跳过（用户只是在问问题，不需要执行任何操作）。所有需要执行操作的任务都应使用此工具。
 
 ## 何时使用此工具
 以下场景使用：
@@ -103,10 +102,7 @@ MINXIN_TODOS_TOOL_DESCRIPTION = """使用此工具创建和管理当前工作会
 
 ## 何时不使用此工具
 以下情况跳过：
-1. 只有单个直接任务
-2. 任务简单，跟踪无益处
-3. 任务可在少于3个简单步骤内完成
-4. 任务纯粹是对话或信息性的
+1. 任务纯粹是对话或信息性的（例如用户只是在问问题，不需要执行任何操作）
 
 ## 任务状态和管理
 
