@@ -3,6 +3,10 @@
   "python.analysis.include": [
     "libs/**"
   ],
+  "python.analysis.extraPaths": [
+    "libs/deepagents",
+    "libs/cli"
+  ],
   "python.analysis.exclude": [
     "**/node_modules",
     "**/__pycache__",
@@ -67,7 +71,7 @@
     "editor.insertSpaces": true
   },
   "python.terminal.activateEnvironment": false,
-  "python.defaultInterpreterPath": "./.venv/bin/python",
+  "python.defaultInterpreterPath": "libs/cli/.venv/bin/python",
   "github.copilot.chat.commitMessageGeneration.instructions": [
     {
       "file": ".github/workflows/pr_lint.yml"
